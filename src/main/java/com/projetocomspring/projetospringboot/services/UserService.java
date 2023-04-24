@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.projetocomspring.projetospringboot.entities.User;
 import com.projetocomspring.projetospringboot.repositories.UserRepository;
+import com.projetocomspring.projetospringboot.services.exceptions.ResourceNotFoundExceptions;
 
 @Service
 public class UserService {
@@ -26,7 +27,7 @@ public class UserService {
 		
 		Optional<User> obj = repository.findById(id);
 		
-		return obj.get();
+		return obj.orElseThrow(()->new ResourceNotFoundExceptions(id));
 	}
 	
 	public User insert(User obj) {
